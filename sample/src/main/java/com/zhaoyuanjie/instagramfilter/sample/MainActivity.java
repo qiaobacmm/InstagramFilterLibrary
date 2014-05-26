@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,21 +62,7 @@ public class MainActivity extends Activity {
             } catch (FileNotFoundException e) {
             }
             if (imageStream != null) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeStream(imageStream, null, options);
-                int width = options.outWidth;
-                int height = options.outHeight;
-                Rect rect = new Rect(0, 0, width, height);
-                int offset = Math.abs((width - height) / 2);
-                if (rect.width() > rect.height()) {
-                    rect.left += offset;
-                    rect.right -= offset;
-                } else {
-                    rect.top += offset;
-                    rect.bottom -= offset;
-                }
-                Bitmap bitmap = BitmapFactory.decodeStream(imageStream, rect, null);
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 photo.setBitmap(bitmap);
             }
         }
